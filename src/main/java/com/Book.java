@@ -1,13 +1,22 @@
 package com;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.List;
+
 public class Book {
     private String title;
     private Status status;
+    private static List<Book> books = new ArrayList<Book>();
+
+    private static BufferedReader reader;
 
     public Book() {
     }
 
-    public Book(String title){
+    public Book(String title) {
         this.title = title;
     }
 
@@ -15,7 +24,6 @@ public class Book {
         this.title = title;
         this.status = status;
     }
-
 
     public String getTitle() {
         return title;
@@ -33,30 +41,123 @@ public class Book {
         this.status = status;
     }
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+    public static List<Book> getBooks() {
+        return books;
+    }
 
-        Book book = (Book) o;
+    protected static void addBook(String[] args) {
+        String title = null;
+        reader = new BufferedReader(new InputStreamReader(System.in));
 
-        if (title != null ? !title.equals(book.title) : book.title != null) return false;
-        return status == book.status;
+        System.out.println("Please, type a title of the book.");
+
+        try {
+            title = reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (title.isEmpty()) {
+            System.out.println("Type correct title!");
+            addBook(args);
+        }
+
+
+            for (Book m : books
+                    ) {
+                if (m.getTitle().toLowerCase().equals(title.toLowerCase())) {
+                    System.out.println("This book already in the list!");
+                    Main.main(args);
+                }
+
+            }
+
+
+
+        books.add(new Book(title));
+        System.out.println("Book was add.");
+
+        Main.main(args);
 
     }
 
-    @Override
-    public int hashCode() {
-        int result = title != null ? title.hashCode() : 0;
-        result = 31 * result + (status != null ? status.hashCode() : 0);
-        return result;
+    protected static void addStatusForBook(String[] args) {
+        String title = null;
+        int numberOfTheInput = 0;
+        reader = new BufferedReader(new InputStreamReader(System.in));
+
+        System.out.println("Please, type a title of the media (like Harry Potter)");
+
+        try {
+            title = reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (title == null) {
+            System.out.println("Type correct title!");
+            addStatusForBook(args);
+        }
+
+        System.out.println("Chose status" + "\n" +
+                "1. WAS_READ, WAS_WATCHED, WAS_LISTENED" + "\n" +
+                "2. WANT_TO_READ, WANT_TO_WATCH, WANT_TO_LISTEN" + "\n" +
+                "3. IN_PROGRESS");
+
+        try {
+            numberOfTheInput = Integer.parseInt(reader.readLine());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (Book b : books
+                ) {
+            if (b.getTitle().toLowerCase().equals(title.toLowerCase())) {
+                if (b.getStatus() == null && numberOfTheInput == 1) {
+                    b.setStatus(Status.WAS_READ);
+                    System.out.println("Done!");
+                } else if (b.getStatus() == null && numberOfTheInput == 2) {
+                    b.setStatus(Status.WANT_TO_READ);
+                    System.out.println("Done!");
+                } else if (b.getStatus() == null && numberOfTheInput == 3) {
+                    b.setStatus(Status.IN_PROGRESS);
+                    System.out.println("Done!");
+                }
+            }
+        }
+
+        Main.main(args);
     }
 
-    @Override
-    public String toString() {
-        return "com.Book{" +
-                "title='" + title + '\'' +
-                ", status=" + status +
-                '}';
+    protected static void checkStatusOfBook(String[] args) {
+        String title = null;
+        System.out.println("Please, type a title of the book (like Harry Potter)");
+        reader = new BufferedReader(new InputStreamReader(System.in));
+
+        try {
+            title = reader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        if (title.isEmpty()) {
+            System.out.println("Type correct title!");
+            checkStatusOfBook(args);
+        }
+
+        if (Book.getBooks().isEmpty()){
+            System.out.println("No book with this name!");
+        }
+
+        for (Book b : Book.getBooks()
+                ) {
+            if (b.getTitle().toLowerCase().equals(title.toLowerCase())) {
+                System.out.println(b.getTitle() + " book status " + b.getStatus());
+            }
+        }
+
+        Main.main(args);
     }
+
+
 }
