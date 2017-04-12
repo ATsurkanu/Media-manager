@@ -1,8 +1,8 @@
 <component name="ArtifactManager">
   <artifact type="jar" build-on-make="true" name="Manager:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/Manager_jar</output-path>
-    <root id="archive" name="Media manager.jar">
-      <element id="module-output" name="Manager" />
+    <root id="archive" name="Manager.jar">
+      <element id="module-output" name="Media manager" />
     </root>
   </artifact>
 </component>
