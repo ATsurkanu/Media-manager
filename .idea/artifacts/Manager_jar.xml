@@ -2,7 +2,9 @@
   <artifact type="jar" build-on-make="true" name="Manager:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/Manager_jar</output-path>
     <root id="archive" name="Manager.jar">
-      <element id="module-output" name="Media manager" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/src/main/java/META-INF/MANIFEST.MF" />
+      </element>
     </root>
   </artifact>
 </component>

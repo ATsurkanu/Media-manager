@@ -130,7 +130,6 @@ public class Main {
                     b.setStatus(Status.IN_PROGRESS);
                     System.out.println("Done!");
                 }
-
             }
         }
 
@@ -147,7 +146,6 @@ public class Main {
                     b.setStatus(Status.IN_PROGRESS);
                     System.out.println("Done!");
                 }
-
             }
         }
 
@@ -167,7 +165,6 @@ public class Main {
 
             }
         }
-
         main(args);
     }
 
@@ -238,7 +235,7 @@ public class Main {
         }
 
         musics.add(new Music(title));
-        System.out.println("com.Music was add.");
+        System.out.println("Music was add.");
         main(args);
 
     }
@@ -271,7 +268,7 @@ public class Main {
         }
 
         movies.add(new Movie(title));
-        System.out.println("com.Movie was add.");
+        System.out.println("Movie was add.");
         main(args);
 
     }
@@ -304,7 +301,7 @@ public class Main {
         }
 
         books.add(new Book(title));
-        System.out.println("com.Book was add.");
+        System.out.println("Book was add.");
         main(args);
 
     }
