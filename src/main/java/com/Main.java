@@ -23,7 +23,6 @@ public class Main {
             numberOfInput = Integer.parseInt(reader.readLine());
         } catch (IOException e) {
             e.printStackTrace();
-
         }
 
         if (numberOfInput == 1) {
@@ -37,24 +36,27 @@ public class Main {
         } else if (numberOfInput == 5) {
             addStatus(args);
         } else if (numberOfInput == 6) {
+            printMedia(args);
+        } else if (numberOfInput == 7) {
             try {
-                printMedia(args);
+                reader.close();
             } catch (IOException e) {
                 e.printStackTrace();
             }
+            System.exit(0);
         } else {
             System.out.println("Choose correct number!");
             main(args);
         }
 
+
     }
 
-    private static void printMedia(String[] args) throws IOException {
-
+    private static void printMedia(String[] args) {
         int numberOfTheInput = 0;
         reader = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.println("Chose media to print" + "\" + " +
+        System.out.println("Chose media to print" + "\n" +
                 "1. Print all of the books." + "\n" +
                 "2. Print all of the movies." + "\n" +
                 "3. Print all of the musics.");
@@ -68,22 +70,23 @@ public class Main {
         if (numberOfTheInput == 1) {
             for (Book b : books
                     ) {
-                System.out.println(b.getTitle() + ": " + b.getStatus());
+                System.out.println(b.getTitle() + ", status: " + b.getStatus());
             }
         } else if (numberOfTheInput == 2) {
             for (Movie m : movies
                     ) {
-                System.out.println(m.getTitle() + ": " + m.getStatus());
+                System.out.println(m.getTitle() + ", status: " + m.getStatus());
             }
         } else if (numberOfTheInput == 3) {
             for (Music m : musics
                     ) {
-                System.out.println(m.getTitle() + ": " + m.getStatus());
+                System.out.println(m.getTitle() + ", status: " + m.getStatus());
             }
-        } else if (numberOfTheInput < 1 || numberOfTheInput > 3) {
+        } else {
             System.out.println("Incorrect number!");
             printMedia(args);
         }
+
 
         main(args);
     }
@@ -165,6 +168,7 @@ public class Main {
 
             }
         }
+
         main(args);
     }
 
@@ -178,7 +182,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        if (title == null) {
+        if (title.isEmpty()) {
             System.out.println("Type correct title!");
             checkStatus(args);
         }
@@ -217,7 +221,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        if (title == null) {
+        if (title.isEmpty()) {
             System.out.println("Type correct title!");
             addMusic(args);
         }
@@ -236,6 +240,7 @@ public class Main {
 
         musics.add(new Music(title));
         System.out.println("Music was add.");
+
         main(args);
 
     }
@@ -250,7 +255,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        if (title == null) {
+        if (title.isEmpty()) {
             System.out.println("Type correct title!");
             addMovie(args);
         }
@@ -269,6 +274,7 @@ public class Main {
 
         movies.add(new Movie(title));
         System.out.println("Movie was add.");
+
         main(args);
 
     }
@@ -283,7 +289,7 @@ public class Main {
             e.printStackTrace();
         }
 
-        if (title == null) {
+        if (title.isEmpty()) {
             System.out.println("Type correct title!");
             addBook(args);
         }
@@ -302,6 +308,7 @@ public class Main {
 
         books.add(new Book(title));
         System.out.println("Book was add.");
+
         main(args);
 
     }
@@ -314,7 +321,8 @@ public class Main {
                 "3. Add movie" + "\n" +
                 "4. Check status" + "\n" +
                 "5. Add status" + "\n" +
-                "6. Print media.");
+                "6. Print media." + "\n" +
+                "7. Exit");
 
     }
 }
