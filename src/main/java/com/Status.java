@@ -1,0 +1,5 @@
+package com;
+
+public enum Status {
+    WAS_READ, WAS_WATCHED, WAS_LISTENED, WANT_TO_READ, WANT_TO_WATCH, WANT_TO_LISTEN, IN_PROGRESS;
+}
