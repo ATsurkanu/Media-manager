@@ -72,8 +72,6 @@ public class Book {
 
             }
 
-
-
         books.add(new Book(title));
         System.out.println("Book was add.");
 
@@ -152,7 +150,16 @@ public class Book {
         for (Book b : Book.getBooks()
                 ) {
             if (b.getTitle().toLowerCase().equals(title.toLowerCase())) {
-                System.out.println(b.getTitle() + " book status " + b.getStatus());
+                System.out.print(b.getTitle() + " book status is: ");
+            }
+        }
+
+        for (Book b : Book.getBooks()
+                ) {
+            if (b.getStatus() == null) {
+                System.out.println("without status yet.");
+            } else {
+                System.out.println(b.getStatus());
             }
         }
 

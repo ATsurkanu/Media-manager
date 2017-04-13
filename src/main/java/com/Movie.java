@@ -153,11 +153,18 @@ public class Movie {
         for (Movie m : Movie.getMovies()
                 ) {
             if (m.getTitle().toLowerCase().equals(title.toLowerCase())) {
-                System.out.println(m.getTitle() + " book status " + m.getStatus());
+                System.out.println(m.getTitle() + " movie status is: ");
             }
         }
 
-
+        for (Movie b : Movie.getMovies()
+                ) {
+            if (b.getStatus() == null) {
+                System.out.println("without status yet.");
+            } else {
+                System.out.println(b.getStatus());
+            }
+        }
 
         Main.main(args);
     }

@@ -21,6 +21,7 @@ public class ChoseOption {
 
     protected static void chooseOption(String[] args){
         bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+        System.setProperty("console.encoding","utf-8");
 
         try {
             numberOfInput = Integer.parseInt(bufferedReader.readLine());

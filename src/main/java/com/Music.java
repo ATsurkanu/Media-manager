@@ -153,15 +153,18 @@ public class Music {
         for (Music m : Music.getMusics()
                 ) {
             if (m.getTitle().toLowerCase().equals(title.toLowerCase())) {
-                System.out.println(m.getTitle() + " book status " + m.getStatus());
+                System.out.println(m.getTitle() + " music status is: ");
             }
         }
 
-//        try {
-//            reader.close();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
+        for (Music b : Music.getMusics()
+                ) {
+            if (b.getStatus() == null) {
+                System.out.println("without status yet.");
+            } else {
+                System.out.println(b.getStatus());
+            }
+        }
 
         Main.main(args);
     }
