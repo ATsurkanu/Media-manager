@@ -1,9 +1,6 @@
 package com;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.Serializable;
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,11 +45,18 @@ public class Music implements Serializable{
     }
 
     protected static void addMusic(String[] args) {
+        PrintStream ps = null;
+
+        try {
+            ps = new PrintStream(System.out, true, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         String title = null;
         reader = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.println("Please, type a title of the music.");
+        ps.println("Please, type a title of the music.");
 
         try {
             title = reader.readLine();
@@ -61,7 +65,7 @@ public class Music implements Serializable{
         }
 
         if (title.isEmpty()) {
-            System.out.println("Type correct title!");
+            ps.println("Type correct title!");
             addMusic(args);
         }
 
@@ -69,7 +73,7 @@ public class Music implements Serializable{
         for (Music m : musics
                 ) {
             if (m.getTitle().toLowerCase().equals(title.toLowerCase())) {
-                System.out.println("This music already in the list!");
+                ps.println("This music already in the list!");
                 Main.main(args);
             }
 
@@ -77,18 +81,26 @@ public class Music implements Serializable{
 
         musics.add(new Music(title));
 
-        System.out.println("Music was add.");
+        ps.println("Music was add.");
 
         Main.main(args);
 
     }
 
     protected static void addStatusForMusic(String[] args) {
-              String title = null;
+        PrintStream ps = null;
+
+        try {
+            ps = new PrintStream(System.out, true, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+        String title = null;
         int numberOfTheInput = 0;
         reader = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.println("Please, type a title of the media (like Harry Potter)");
+        ps.println("Please, type a title of the media (like Harry Potter)");
 
         try {
             title = reader.readLine();
@@ -97,11 +109,11 @@ public class Music implements Serializable{
         }
 
         if (title == null) {
-            System.out.println("Type correct title!");
+            ps.println("Type correct title!");
             addStatusForMusic(args);
         }
 
-        System.out.println("Chose status" + "\n" +
+        ps.println("Chose status" + "\n" +
                 "1. WAS_READ, WAS_WATCHED, WAS_LISTENED" + "\n" +
                 "2. WANT_TO_READ, WANT_TO_WATCH, WANT_TO_LISTEN" + "\n" +
                 "3. IN_PROGRESS");
@@ -117,13 +129,13 @@ public class Music implements Serializable{
             if (b.getTitle().toLowerCase().equals(title.toLowerCase())) {
                 if (b.getStatus() == null && numberOfTheInput == 1) {
                     b.setStatus(Status.WAS_LISTENED);
-                    System.out.println("Done!");
+                    ps.println("Done!");
                 } else if (b.getStatus() == null && numberOfTheInput == 2) {
                     b.setStatus(Status.WANT_TO_LISTEN);
-                    System.out.println("Done!");
+                    ps.println("Done!");
                 } else if (b.getStatus() == null && numberOfTheInput == 3) {
                     b.setStatus(Status.IN_PROGRESS);
-                    System.out.println("Done!");
+                    ps.println("Done!");
                 }
 
             }
@@ -134,11 +146,18 @@ public class Music implements Serializable{
     }
 
     protected static void checkStatusOfMusic(String[] args) {
+        PrintStream ps = null;
+
+        try {
+            ps = new PrintStream(System.out, true, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
 
         String title = null;
         reader = new BufferedReader(new InputStreamReader(System.in));
 
-        System.out.println("Please, type a title of the music (like Ariya)");
+        ps.println("Please, type a title of the music (like Ariya)");
 
         try {
             title = reader.readLine();
@@ -147,27 +166,27 @@ public class Music implements Serializable{
         }
 
         if (title.isEmpty()) {
-            System.out.println("Type correct title!");
+            ps.println("Type correct title!");
             checkStatusOfMusic(args);
         }
 
         if (Music.getMusics().isEmpty()) {
-            System.out.println("No music with this name!");
+            ps.println("No music with this name!");
         }
 
         for (Music m : Music.getMusics()
                 ) {
             if (m.getTitle().toLowerCase().equals(title.toLowerCase())) {
-                System.out.println(m.getTitle() + " music status is: ");
+                ps.println(m.getTitle() + " music status is: ");
             }
         }
 
         for (Music b : Music.getMusics()
                 ) {
             if (b.getStatus() == null) {
-                System.out.println("without status yet.");
+                ps.println("without status yet.");
             } else {
-                System.out.println(b.getStatus());
+                ps.println(b.getStatus());
             }
         }
 
