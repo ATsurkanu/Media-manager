@@ -3,10 +3,11 @@ package com;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Book {
+public class Book implements Serializable{
     private String title;
     private Status status;
     private static List<Book> books = new ArrayList<Book>();
@@ -73,6 +74,7 @@ public class Book {
             }
 
         books.add(new Book(title));
+
         System.out.println("Book was add.");
 
         Main.main(args);
@@ -80,6 +82,8 @@ public class Book {
     }
 
     protected static void addStatusForBook(String[] args) {
+
+
         String title = null;
         int numberOfTheInput = 0;
         reader = new BufferedReader(new InputStreamReader(System.in));
@@ -124,10 +128,13 @@ public class Book {
             }
         }
 
+
+
         Main.main(args);
     }
 
     protected static void checkStatusOfBook(String[] args) {
+
         String title = null;
         System.out.println("Please, type a title of the book (like Harry Potter)");
         reader = new BufferedReader(new InputStreamReader(System.in));
@@ -156,10 +163,10 @@ public class Book {
 
         for (Book b : Book.getBooks()
                 ) {
-            if (b.getStatus() == null) {
-                System.out.println("without status yet.");
-            } else {
+            if (b.getStatus() != null) {
                 System.out.println(b.getStatus());
+            } else {
+                System.out.println("without status yet.");
             }
         }
 

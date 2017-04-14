@@ -25,29 +25,51 @@ public class Print {
         if (numberOfTheInput == 1) {
             if (Book.getBooks().isEmpty()) {
                 System.out.println("Books is Empty!");
-            } else
+            } else {
                 for (Book b : Book.getBooks()
                         ) {
-                    System.out.println(b.getTitle() + ", status: " + b.getStatus());
+                    System.out.print(b.getTitle() + " book status is: ");
                 }
 
+                for (Book b : Book.getBooks()
+                        ) {
+                    if (b.getStatus() != null) {
+                        System.out.println(b.getStatus());
+                    } else {
+                        System.out.println("without status yet.");
+                    }
+                }
+            }
         } else if (numberOfTheInput == 2) {
             if (Movie.getMovies().isEmpty()) {
                 System.out.println("Movies is empty!");
             } else
-                for (Movie m : Movie.getMovies()
-                        ) {
-                    System.out.println(m.getTitle() + ", status: " + m.getStatus());
+                for (Movie m : Movie.getMovies())
+                    System.out.println(m.getTitle() + " movie status is: ");
+            for (Movie b : Movie.getMovies()
+                    ) {
+                if (b.getStatus() == null) {
+                    System.out.println("without status yet.");
+                } else {
+                    System.out.println(b.getStatus());
                 }
-
+            }
         } else if (numberOfTheInput == 3) {
             if (Music.getMusics().isEmpty()) {
                 System.out.println("Musics is empty!");
-            } else
-                for (Music m : Music.getMusics()
-                        ) {
-                    System.out.println(m.getTitle() + ", status: " + m.getStatus());
+            } else {
+                for (Music m : Music.getMusics()) {
+                    System.out.println(m.getTitle() + " music status is: ");
                 }
+                for (Music b : Music.getMusics()
+                        ) {
+                    if (b.getStatus() == null) {
+                        System.out.println("without status yet.");
+                    } else {
+                        System.out.println(b.getStatus());
+                    }
+                }
+            }
         } else {
             System.out.println("Incorrect number!");
             printMedia(args);

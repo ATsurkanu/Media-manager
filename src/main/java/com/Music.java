@@ -3,10 +3,11 @@ package com;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Music {
+public class Music implements Serializable{
     private String title;
     private Status status;
     private static List<Music> musics = new ArrayList<Music>();
@@ -47,6 +48,7 @@ public class Music {
     }
 
     protected static void addMusic(String[] args) {
+
         String title = null;
         reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -74,6 +76,7 @@ public class Music {
         }
 
         musics.add(new Music(title));
+
         System.out.println("Music was add.");
 
         Main.main(args);
@@ -81,7 +84,7 @@ public class Music {
     }
 
     protected static void addStatusForMusic(String[] args) {
-        String title = null;
+              String title = null;
         int numberOfTheInput = 0;
         reader = new BufferedReader(new InputStreamReader(System.in));
 
@@ -126,10 +129,12 @@ public class Music {
             }
         }
 
+
         Main.main(args);
     }
 
     protected static void checkStatusOfMusic(String[] args) {
+
         String title = null;
         reader = new BufferedReader(new InputStreamReader(System.in));
 
