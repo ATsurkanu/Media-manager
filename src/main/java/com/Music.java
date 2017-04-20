@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Music implements Serializable{
+    private static final long serialVersionUID = 3L;
+
     private String title;
     private Status status;
     private static List<Music> musics = new ArrayList<Music>();
@@ -192,4 +194,6 @@ public class Music implements Serializable{
 
         Main.main(args);
     }
+
+
 }

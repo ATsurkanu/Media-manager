@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Movie implements Serializable {
+    private static final long serialVersionUID = 2L;
+
     private String title;
     private Status status;
     private static List<Movie> movies = new ArrayList<Movie>();

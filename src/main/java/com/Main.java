@@ -7,6 +7,11 @@ public class Main {
 
 
     public static void main(String[] args) {
+        //DBTableUtil.createBooksTable(DBConnectionUtil.connect());
+        //DBTableUtil.createMoviesTable(DBConnectionUtil.connect());
+        //DBTableUtil.createMusicsTable(DBConnectionUtil.connect());
+        Book.initBooks();
+
         printTheFirstSelectionMenu();
         chooseOption(args);
     }

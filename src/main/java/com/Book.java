@@ -5,9 +5,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Book implements Serializable {
+    private static final long serialVersionUID = 1L;
+
     private String title;
     private Status status;
     private static List<Book> books = new ArrayList<Book>();
+    private static File f = new File("C:\\Windows\\Temp\\books.txt");
 
     private static BufferedReader reader;
 
@@ -68,7 +71,6 @@ public class Book implements Serializable {
             addBook(args);
         }
 
-
         for (Book m : books
                 ) {
             if (m.getTitle().toLowerCase().equals(title.toLowerCase())) {
@@ -79,6 +81,7 @@ public class Book implements Serializable {
         }
 
         books.add(new Book(title));
+        serializeBooks(books);
 
         ps.println("Book was add.");
 
@@ -190,5 +193,41 @@ public class Book implements Serializable {
         Main.main(args);
     }
 
+    private static void serializeBooks(List books) {
 
+        try (ObjectOutputStream oos =
+                     new ObjectOutputStream(new FileOutputStream("C:\\Windows\\Temp\\books.txt"))) {
+            oos.writeObject(books);
+            System.out.println("Writing Done!");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    private static List<Book> deserializeBooks(List books) {
+
+        try (ObjectInputStream ois =
+                     new ObjectInputStream(new FileInputStream("C:\\Windows\\Temp\\books.txt"))) {
+            books = (List) ois.readObject();
+            System.out.println("Reading done!");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return books;
+    }
+
+    protected static void initBooks() {
+        if (f.isFile()) {
+            deserializeBooks(books);
+        } else {
+            serializeBooks(books);
+        }
+    }
 }
