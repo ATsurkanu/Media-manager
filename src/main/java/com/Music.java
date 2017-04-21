@@ -2,9 +2,10 @@ package com;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class Music implements Serializable{
+public class Music implements Serializable {
     private static final long serialVersionUID = 3L;
 
     private String title;
@@ -82,11 +83,11 @@ public class Music implements Serializable{
         }
 
         musics.add(new Music(title));
+        serializeMusic(musics);
 
         ps.println("Music was add.");
 
         Main.main(args);
-
     }
 
     protected static void addStatusForMusic(String[] args) {
@@ -143,6 +144,7 @@ public class Music implements Serializable{
             }
         }
 
+        serializeMusic(musics);
 
         Main.main(args);
     }
@@ -179,21 +181,62 @@ public class Music implements Serializable{
         for (Music m : Music.getMusics()
                 ) {
             if (m.getTitle().toLowerCase().equals(title.toLowerCase())) {
-                ps.println(m.getTitle() + " music status is: ");
-            }
-        }
-
-        for (Music b : Music.getMusics()
-                ) {
-            if (b.getStatus() == null) {
-                ps.println("without status yet.");
-            } else {
-                ps.println(b.getStatus());
+                ps.print(m.getTitle() + " music status is: ");
+                if (m.getStatus() == null) {
+                    ps.println("without status yet.");
+                } else {
+                    ps.println(m.getStatus());
+                }
             }
         }
 
         Main.main(args);
     }
 
+    private static void serializeMusic(List<Music> musics) {
+        if (musics.isEmpty()) {
+            return;
+        }
 
+        try (ObjectOutputStream oos =
+                     new ObjectOutputStream(new FileOutputStream("C:\\Windows\\Temp\\musics.txt"))) {
+            oos.writeInt(musics.size());
+
+            for (Music music : musics
+                    ) {
+                oos.writeObject(music);
+            }
+            System.out.println("Writing Done!");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    protected static List<Music> deserializeMusic() {
+        File f = new File("C:\\Windows\\Temp\\musics.txt");
+        if (!f.exists()) {
+            return Collections.emptyList();
+        }
+
+        List<Music> musicList = null;
+        try (ObjectInputStream ois =
+                     new ObjectInputStream(new FileInputStream("C:\\Windows\\Temp\\musics.txt"))) {
+            int size = ois.readInt();
+
+            musicList = new ArrayList<>(size);
+            for (int i = 0; i < size; i++)
+                musicList.add((Music) ois.readObject());
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return musics = musicList;
+    }
 }

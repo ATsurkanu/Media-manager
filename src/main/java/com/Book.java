@@ -2,16 +2,15 @@ package com;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Book implements Serializable {
     private static final long serialVersionUID = 1L;
-
     private String title;
     private Status status;
-    private static List<Book> books = new ArrayList<Book>();
-    private static File f = new File("C:\\Windows\\Temp\\books.txt");
 
+    private static List<Book> books = new ArrayList<Book>();
     private static BufferedReader reader;
 
     public Book() {
@@ -86,7 +85,6 @@ public class Book implements Serializable {
         ps.println("Book was add.");
 
         Main.main(args);
-
     }
 
     protected static void addStatusForBook(String[] args) {
@@ -141,7 +139,7 @@ public class Book implements Serializable {
                 }
             }
         }
-
+        serializeBooks(books);
 
         Main.main(args);
     }
@@ -178,26 +176,30 @@ public class Book implements Serializable {
                 ) {
             if (b.getTitle().toLowerCase().equals(title.toLowerCase())) {
                 ps.print(b.getTitle() + " book status is: ");
-            }
-        }
-
-        for (Book b : Book.getBooks()
-                ) {
-            if (b.getStatus() != null) {
-                ps.println(b.getStatus());
-            } else {
-                ps.println("without status yet.");
+                if (b.getStatus() != null) {
+                    ps.println(b.getStatus());
+                } else {
+                    ps.println("without status yet.");
+                }
             }
         }
 
         Main.main(args);
     }
 
-    private static void serializeBooks(List books) {
+    private static void serializeBooks(List<Book> books) {
+        if (books.isEmpty()) {
+            return;
+        }
 
         try (ObjectOutputStream oos =
                      new ObjectOutputStream(new FileOutputStream("C:\\Windows\\Temp\\books.txt"))) {
-            oos.writeObject(books);
+            oos.writeInt(books.size());
+
+            for (Book book : books
+                    ) {
+                oos.writeObject(book);
+            }
             System.out.println("Writing Done!");
 
         } catch (Exception ex) {
@@ -206,12 +208,21 @@ public class Book implements Serializable {
 
     }
 
-    private static List<Book> deserializeBooks(List books) {
+    protected static List<Book> deserializeBooks() {
+        File f = new File("C:\\Windows\\Temp\\books.txt");
+        if (!f.exists()) {
+            return Collections.emptyList();
+        }
 
+        List<Book> bookList = null;
         try (ObjectInputStream ois =
                      new ObjectInputStream(new FileInputStream("C:\\Windows\\Temp\\books.txt"))) {
-            books = (List) ois.readObject();
-            System.out.println("Reading done!");
+            int size = ois.readInt();
+
+            bookList = new ArrayList<>(size);
+            for (int i = 0; i < size; i++)
+                bookList.add((Book) ois.readObject());
+
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -220,14 +231,6 @@ public class Book implements Serializable {
             e.printStackTrace();
         }
 
-        return books;
-    }
-
-    protected static void initBooks() {
-        if (f.isFile()) {
-            deserializeBooks(books);
-        } else {
-            serializeBooks(books);
-        }
+        return books = bookList;
     }
 }

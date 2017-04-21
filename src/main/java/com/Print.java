@@ -34,11 +34,7 @@ public class Print {
             } else {
                 for (Book b : Book.getBooks()
                         ) {
-                    ps.println(b.getTitle() + " book status is: ");
-                }
-
-                for (Book b : Book.getBooks()
-                        ) {
+                    ps.print(b.getTitle() + " book status is: ");
                     if (b.getStatus() != null) {
                         ps.println(b.getStatus());
                     } else {
@@ -50,29 +46,24 @@ public class Print {
             if (Movie.getMovies().isEmpty()) {
                 ps.println("Movies is empty!");
             } else
-                for (Movie m : Movie.getMovies())
-                    ps.println(m.getTitle() + " movie status is: ");
-            for (Movie b : Movie.getMovies()
-                    ) {
-                if (b.getStatus() == null) {
-                    ps.println("without status yet.");
-                } else {
-                    ps.println(b.getStatus());
-                }
-            }
-        } else if (numberOfTheInput == 3) {
-            if (Music.getMusics().isEmpty()) {
-                ps.println("Musics is empty!");
-            } else {
-                for (Music m : Music.getMusics()) {
-                    ps.println(m.getTitle() + " music status is: ");
-                }
-                for (Music b : Music.getMusics()
-                        ) {
-                    if (b.getStatus() == null) {
+                for (Movie m : Movie.getMovies()) {
+                    ps.print(m.getTitle() + " movie status is: ");
+                    if (m.getStatus() == null) {
                         ps.println("without status yet.");
                     } else {
-                        ps.println(b.getStatus());
+                        ps.println(m.getStatus());
+                    }
+                }
+        } else if (numberOfTheInput == 3) {
+            if (Music.getMusics().isEmpty()) {
+                ps.print("Musics is empty!");
+            } else {
+                for (Music m : Music.getMusics()) {
+                    ps.print(m.getTitle() + " music status is: ");
+                    if (m.getStatus() == null) {
+                        ps.println("without status yet.");
+                    } else {
+                        ps.println(m.getStatus());
                     }
                 }
             }
@@ -85,6 +76,7 @@ public class Print {
     }
 
     protected static void printTheFirstSelectionMenu() {
+        System.out.println();
         System.out.println("Please, choose option by typing correct number:" + "\n" +
                 "1. Add book." + "\n" +
                 "2. Add music" + "\n" +

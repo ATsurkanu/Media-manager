@@ -7,10 +7,9 @@ public class Main {
 
 
     public static void main(String[] args) {
-        //DBTableUtil.createBooksTable(DBConnectionUtil.connect());
-        //DBTableUtil.createMoviesTable(DBConnectionUtil.connect());
-        //DBTableUtil.createMusicsTable(DBConnectionUtil.connect());
-        Book.initBooks();
+        Book.deserializeBooks();
+        Movie.deserializeMovies();
+        Music.deserializeMusic();
 
         printTheFirstSelectionMenu();
         chooseOption(args);

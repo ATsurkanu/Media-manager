@@ -2,6 +2,7 @@ package com;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Movie implements Serializable {
@@ -72,22 +73,21 @@ public class Movie implements Serializable {
             addMovie(args);
         }
 
-
-            for (Movie m : movies
-                    ) {
-                if (m.getTitle().toLowerCase().equals(title.toLowerCase())) {
-                    ps.println("This movie already in the list!");
-                    Main.main(args);
-                }
-
+        for (Movie m : movies
+                ) {
+            if (m.getTitle().toLowerCase().equals(title.toLowerCase())) {
+                ps.println("This movie already in the list!");
+                Main.main(args);
             }
 
+        }
+
         movies.add(new Movie(title));
+        serializeMovie(movies);
 
         ps.println("Movie was add.");
 
         Main.main(args);
-
     }
 
     protected static void addStatusForMovie(String[] args) {
@@ -143,6 +143,7 @@ public class Movie implements Serializable {
             }
         }
 
+        serializeMovie(movies);
 
         Main.main(args);
     }
@@ -172,26 +173,70 @@ public class Movie implements Serializable {
             checkStatusOfMovie(args);
         }
 
-        if (Movie.getMovies().isEmpty()){
+        if (Movie.getMovies().isEmpty()) {
             ps.println("No movie with this name!");
         }
 
         for (Movie m : Movie.getMovies()
                 ) {
             if (m.getTitle().toLowerCase().equals(title.toLowerCase())) {
-                ps.println(m.getTitle() + " movie status is: ");
+                ps.print(m.getTitle() + " movie status is: ");
+                if (m.getStatus() == null) {
+                    ps.println("without status yet.");
+                } else {
+                    ps.println(m.getStatus());
+                }
             }
         }
 
-        for (Movie b : Movie.getMovies()
-                ) {
-            if (b.getStatus() == null) {
-                ps.println("without status yet.");
-            } else {
-                ps.println(b.getStatus());
-            }
-        }
 
         Main.main(args);
+    }
+
+    private static void serializeMovie(List<Movie> movies) {
+        if (movies.isEmpty()) {
+            return;
+        }
+
+        try (ObjectOutputStream oos =
+                     new ObjectOutputStream(new FileOutputStream("C:\\Windows\\Temp\\movies.txt"))) {
+            oos.writeInt(movies.size());
+
+            for (Movie movie : movies
+                    ) {
+                oos.writeObject(movie);
+            }
+            System.out.println("Writing Done!");
+
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+    }
+
+    protected static List<Movie> deserializeMovies() {
+        File f = new File("C:\\Windows\\Temp\\movies.txt");
+        if (!f.exists()) {
+            return Collections.emptyList();
+        }
+
+        List<Movie> movieList = null;
+        try (ObjectInputStream ois =
+                     new ObjectInputStream(new FileInputStream("C:\\Windows\\Temp\\movies.txt"))) {
+            int size = ois.readInt();
+
+            movieList = new ArrayList<>(size);
+            for (int i = 0; i < size; i++)
+                movieList.add((Movie) ois.readObject());
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        return movies = movieList;
     }
 }
